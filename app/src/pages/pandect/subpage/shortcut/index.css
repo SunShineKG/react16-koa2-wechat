@@ -1,0 +1,28 @@
+.container {
+    width: 100%;
+    height: auto;
+    padding: 10px;
+    border: 1px solid #e2e2e2;
+    margin-top: 10px;
+}
+.container ul {
+    display: flex;
+    justify-content: space-between;
+}
+.container ul li {
+    flex: 1;
+    margin: 10px;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    background: #f8f8f8;
+    color: #1890ff;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 8px;
+    border: 1px solid #1890ff;
+}
+.container ul li:hover {
+    background: #1890ff;
+    color: #fff;
+}

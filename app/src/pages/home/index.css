@@ -1,0 +1,27 @@
+.container {
+    padding-left: 160px;
+}
+.slideBar {
+    width: auto;
+    height: 100vh;
+    background: #001529;
+    position: fixed;
+    left: 0;
+    top: 0;
+}
+.rightBox {
+
+}
+.header {
+    height: 60px;
+    background: #fff;
+    box-sizing: border-box;
+    border-bottom: 1px solid #e2e2e2;
+}
+.content {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    background: #fff;
+    margin-top: 20px;
+}

@@ -1,0 +1,25 @@
+.part2 {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+}
+.shortcut {
+    width: 48%;
+    height: 200px;
+    background: #fff;
+}
+.salesRank {
+    width: 48%;
+    height: 300px;
+    background: #fff;
+    overflow-y: scroll;
+    border-bottom: 1px solid #e2e2e2;
+}
+.newMember {
+    margin-top: 40px;
+    width: 100%;
+    height: auto;
+    background: #fff;
+}

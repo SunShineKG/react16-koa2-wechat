@@ -1,0 +1,15 @@
+.container {
+    width: 100%;
+    height: auto;
+    background: #fff;
+    padding: 20px;
+    box-sizing: border-box;
+}
+.searchBar {
+    width: 360px;
+}
+.searchBox {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
