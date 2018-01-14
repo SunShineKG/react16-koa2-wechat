@@ -34,11 +34,8 @@ import {
 export async function signIn (ctx) {
 
   const option = ctx.request.body,
-      data = {}
-      console.log(ctx.request.body.pass)
-  let ss = setHash(ctx.request.body.pass)
-  console.log(ss)
-  const result = await find(superAdmin, { username: option.username, pass: option.pass })
+      data = {},
+      result = await find(superAdmin, { username: option.username, pass: await setHash(option.pass) })
 
   if (!result) return
 
@@ -77,25 +74,34 @@ export async function getUserInfo (ctx) {
 export async function reviseSuper (ctx) {
   
   const params = ctx.request.body,
-  id = getJWT(params.token).id,
-  oldData = await find(
-    superAdmin,
-    {
-      _id: id
-    }
-  )
+        id = getJWT(params.token).id,
+        oldData = await find(
+          superAdmin,
+          {
+            _id: id
+          }
+        )
+
   if (!oldData) return
 
-  let pass = setHash(params.pass)
-  if (!params.pass || oldData.rows.pass === pass) {
-    params.pass = setHash(ctx.request.body.pass)
+  let oldPass = await setHash(params.oldPass),
+      result
+
+  if (!params.oldPass || oldData.rows.pass === oldPass) {
+
+    params.pass = await setHash(ctx.request.body.newPass)
     result = await update(
       superAdmin,
       { 
         _id: id
       },
-      outType(params, ['id','token'])
+      outType(params, ['token', "oldPass", "newPass", "confirm"])
     )
+  } else {
+    result = {
+      ok: 1,
+      message: '密码输入不正确，请重新输入！'
+    }
   }
 
   if (!result) return

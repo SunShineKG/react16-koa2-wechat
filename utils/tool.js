@@ -2,7 +2,7 @@
  * @description 基础工具方法
  */
 
-import bcrypt from 'bcryptjs'
+import md5 from 'md5'
 
 // 判断对象是否为空
 export function isEmptyObject (obj) {
@@ -40,18 +40,8 @@ export function createRandom () {
 }
 
 // 密码加密，生成hash
-export function setHash (salt) {
+export async function setHash (salt) {
 
-  return bcrypt.genSalt(10, function(err, salt) {
-    console.log(11)
-    bcrypt.hash("B4c0/\/", salt, function(err, hash) {
-      if (err) {
-        throw err
-        return false
-      }
-      console.log(hash)
-      return hash
-    });
-  });
+  return await md5(salt)
 }
 

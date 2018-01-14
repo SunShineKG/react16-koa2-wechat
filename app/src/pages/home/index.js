@@ -47,14 +47,7 @@ export default class Home extends React.Component {
         .then(res => {
             this.setUsername(res.data.rows.username)
         })
-        $http
-        .put('/super/reviseSuper',{
-            token: window.localStorage.token,
-            pass: '$2a$10$r.SGG/YKc/zRrDg07f7R8.2AwyhW.WAY2UmqwcSNU.7NZjBhk2faO'
-        })
-        .then(res => {
-            this.setUsername(res.data.rows.username)
-        })
+
     }
     render () {
         return (

@@ -8,7 +8,7 @@ import {
 } from 'antd';
 import WrappedNormalLoginForm from '../../component/loginForm/index';
 import style from './index.css'
-import axios from 'axios'
+import $http from 'axios'
 import {observer,inject} from 'mobx-react';
 
 @inject(
@@ -21,14 +21,13 @@ export default class Login extends React.Component {
     }
 
     login(values) {
-        axios
+        $http
             .post('/super/signIn', values)
             .then(response => {
-                console.log(response)
                 if (response.data.ok === 1) {
                     message.success(response.data.message)
                     this.props.user.setToken(response.data.token)
-                    this.props.history.push('/home')                 
+                    this.props.history.push('/')                 
                 }
             })
             .catch(err => {
