@@ -15,7 +15,12 @@ export default class Setting extends React.Component {
                 ...val
             })
             .then(res => {
-                message.success(res.data.rows.username)
+                
+                if (res.data.ok === 1) {
+                    message.success(res.data.message)
+                } else {
+                    message.error(res.data.message)
+                }
             })
     }
 

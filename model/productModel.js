@@ -38,11 +38,7 @@ const productModelSchema = new mongoose.Schema({
   price: {
     type: Number,
     required: true
-  },// 单价
-  imgUrls: {
-    type: Array,
-    required: true
-  },// 产品图片
+  }// 单价
 });
 
 // 定义model

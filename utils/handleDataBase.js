@@ -66,7 +66,10 @@ export async function find (model, option, deep, pageConfig) {
     return result
   })
   .catch(err => {
-    return false
+    return {
+      ok: -1,
+      message: '获取数据失败'
+    }
     throw err
   })
 }
@@ -153,3 +156,4 @@ async function count (model) {
 
   return await model.find({}).count()
 }
+  

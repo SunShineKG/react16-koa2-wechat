@@ -15,6 +15,7 @@ class NormalLoginForm extends React.Component {
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         this.props.handleEmit(values)
+        this.props.form.resetFields()
       }
     });
   }
@@ -65,7 +66,7 @@ class NormalLoginForm extends React.Component {
           {getFieldDecorator('oldPass', {
             rules: [{ required: true, message: '请输入旧密码!' }],
           })(
-              <Input type="oldPass" />
+              <Input type="password" />
             )}
         </FormItem>
         <FormItem
@@ -77,7 +78,7 @@ class NormalLoginForm extends React.Component {
               validator: this.checkConfirm,
             },{ required: true, message: '请输入新密码!' }],
           })(
-            <Input type="newPass" />
+            <Input type="password" />
           )}
         </FormItem>
         <FormItem

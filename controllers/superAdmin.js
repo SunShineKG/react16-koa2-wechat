@@ -16,7 +16,8 @@ import {
 } from '../utils/handleDataBase'
 import {
   findOnec,
-  putc
+  putc,
+  insertc
 } from './base.js'
 
 /**
@@ -99,7 +100,7 @@ export async function reviseSuper (ctx) {
     )
   } else {
     result = {
-      ok: 1,
+      ok: -1,
       message: '密码输入不正确，请重新输入！'
     }
   }

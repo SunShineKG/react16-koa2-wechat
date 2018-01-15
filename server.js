@@ -20,14 +20,18 @@ if (NODE_ENV==='pro') {
 
 
 
-
-
 // 静态资源目录对于相对入口文件index.js的路径 
 const staticPath = './static'
 
 app.use(staticParser(
   path.join( __dirname,  staticPath)
 ))
+
+
+
+
+
+
 
 // 初始化路由中间件
 app.use(interceptor).use(routers.routes() ).use( routers.allowedMethods() );

@@ -39,10 +39,6 @@ const productSchema = new mongoose.Schema({
     type: Number,
     required: true
   },// 单价
-  imgUrls: {
-    type: Array,
-    required: true
-  },// 产品图片
   remark: {
     type: String
   }// 备注

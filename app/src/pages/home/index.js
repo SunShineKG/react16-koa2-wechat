@@ -45,7 +45,11 @@ export default class Home extends React.Component {
             }
         })
         .then(res => {
-            this.setUsername(res.data.rows.username)
+            if (res.data.ok === 1) {
+                this.setUsername(res.data.rows.username)
+            } else {
+                message.error(res.data.message)
+            }
         })
 
     }

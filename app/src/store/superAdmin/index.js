@@ -1,7 +1,10 @@
 /**
  * @description 
  */
-import { observable, action } from 'mobx';
+import {
+  observable,
+  action
+} from 'mobx'
 
 class User {
   @observable username = '';
@@ -17,6 +20,7 @@ class User {
   @action
   setUsername = username => {
     this.username = username
+    console.log(this)
   }
 }
 

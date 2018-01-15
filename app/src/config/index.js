@@ -8,7 +8,7 @@ import { message } from 'antd'
 export const interceptors = that => {
   $http.interceptors.response.use(
     response => {
-        if (response.data.ok === -1) {
+        if (response.data.ok === -2) {
             that.props.history.push('/login')
             message.error(response.data.message)
             return false
