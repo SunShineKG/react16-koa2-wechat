@@ -2,24 +2,21 @@
  * @description 通用controllers
  */
 
-import co from 'co'
-import OSS from 'ali-oss'
-
-const client = new OSS({
-  region: 'oss-cn-shanghai',
-  accessKeyId: 'LTAIdGJO8n9D7twQ',
-  accessKeySecret: '4qzMSnaqEWKas5qVsV0yS7U74af321',
-  bucket: 'wechatshops'
-});
+import path from 'path'
+import { uploadFile } from '../utils/upload'
 
 export async function upload (ctx) {
-  console.log(ctx.request.body)
-  try {
-    await client.put('wechat/ss', new Buffer('hello wdorld'))
-    return {
-      ok: 1
-    }
-  } catch (err) {
-    console.log(err)
-  }
+    // 上传文件请求处理
+    let result = { success: false }
+    let serverFilePath = path.join('../static/image')
+
+    // 上传文件事件
+    result = await uploadFile( ctx, {
+      path: serverFilePath
+    })
+    ctx.body = result
 }
+
+
+
+

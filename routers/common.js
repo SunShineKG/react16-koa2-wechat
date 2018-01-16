@@ -12,6 +12,6 @@ const router = Router();
 
 const routers = router
   // 上传图片
-  .put('/upload', upload)
+  .post('/upload', upload)
 
 export default routers

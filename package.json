@@ -19,6 +19,7 @@
   "homepage": "https://github.com/SunShineKG/Koa-onlineShop-api#readme",
   "dependencies": {
     "ali-oss": "^4.11.4",
+    "busboy": "^0.2.14",
     "co": "^4.6.0",
     "jsonwebtoken": "^8.1.0",
     "koa": "^2.4.1",

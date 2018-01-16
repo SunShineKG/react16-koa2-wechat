@@ -8,7 +8,7 @@ import {
 
 export default async (ctx,next) => {
 
-  if (ctx.url !== '/v1/super/signIn') {
+  if (ctx.url !== '/v1/super/signIn' && ctx.url !== '/v1/common/upload') {
     let option = ctx.request.method === 'GET'
                   ? ctx.query
                   : ctx.request.body

@@ -1,23 +1,11 @@
 import React from 'react'
-
 import { Upload, Icon, Modal } from 'antd';
-import {
-  observer,
-  inject
-} from 'mobx-react'
 
-@inject('user')
-@observer
 export default class UploadImg extends React.Component {
   state = {
     previewVisible: false,
     previewImage: '',
-    fileList: [{
-      uid: -1,
-      name: 'xxx.png',
-      status: 'done',
-      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    }],
+    fileList: []
   };
 
   handleCancel = () => this.setState({ previewVisible: false })
@@ -29,13 +17,19 @@ export default class UploadImg extends React.Component {
     });
   }
 
-  handleChange = ({ fileList }) => {
-    this.setState({ fileList });
-    console.log(this.state.fileList)
+  componentDidMount() {
+    this.setState({fileList: this.props.data || []});
+  }
+
+  handleChange = ({fileList}) =>{
+    console.log(11)
+    this.setState({fileList});
+    this.props.pictureChange(this.state.fileList)
   }
 
   render() {
-    const { previewVisible, previewImage, fileList } = this.state;
+    const { previewVisible, previewImage } = this.state;
+    const fileList = this.state.fileList
     const uploadButton = (
       <div>
         <Icon type="plus" />
@@ -48,7 +42,6 @@ export default class UploadImg extends React.Component {
           action="/v1/common/upload"
           listType="picture-card"
           fileList={fileList}
-          data = { {token: window.localStorage.token} }
           onPreview={this.handlePreview}
           onChange={this.handleChange}
         >

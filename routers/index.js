@@ -19,6 +19,6 @@ router.use('/super', superAdmin.routes(), superAdmin.allowedMethods())
 router.use('/productModel', productModel.routes(), productModel.allowedMethods())
 router.use('/product', product.routes(), product.allowedMethods())
 router.use('/order', order.routes(), order.allowedMethods())
-router.use('/common', order.routes(), order.allowedMethods())
+router.use('/common', common.routes(), common.allowedMethods())
 
 export default router
