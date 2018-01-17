@@ -12,20 +12,20 @@ import {
 
 // 获取产品信息
 export async function getProductInfo (ctx) {
-  return findc(ctx, orderModel)
+  return findc(ctx, product)
 }
 
 // 新增产品
 export async function createProduct (ctx) {
-  return insertc(ctx, orderModel)
+  return insertc(ctx, product)
 }
 
 // 删除产品
 export async function delProduct (ctx) {
-  return removec(ctx, orderModel)
+  return removec(ctx, product)
 }
 
 // 修改产品 (包括上下架产品)
 export async function putProduct (ctx) {
-  return putc(ctx, orderModel)
+  return putc(ctx, product)
 }

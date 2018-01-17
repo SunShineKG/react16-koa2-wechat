@@ -7,27 +7,34 @@ import {
 } from 'mobx-react'
 import style from './index.css'
 
-@inject('productModel')
+@inject('product')
 @observer
 export default class ColorsPart extends React.Component {
 
   pictureChange(k, fileList) {
-    this.props.productModel.setimgListsUrls(k, fileList)
+    this.props.product.setimgListsUrls(k, fileList)
   }
 
   insertItem() {
-    this.props.productModel.addimgListsItem()
+    this.props.product.addimgListsItem()
+  }
+
+  handleInputChange(v, e) {
+    v.name = e.target.value
   }
 
   render () {
-    const { imgLists } = this.props.productModel
+    const { imgLists } = this.props.product
     return (
       <div>
         { 
           imgLists.map((v, k) => {
             return  <div key = {k} >
                       <div className = {style.inw}>
-                        <Input defaultValue = {v.name} />
+                        <Input
+                          defaultValue = {v.name}
+                          value = {v.name}
+                          onChange = { this.handleInputChange.bind(this, v) }/>
                       </div>
                       <UploadImg
                         data = {v.urls}

@@ -4,95 +4,79 @@
 import {
   observable,
   action,
-  computed
+  computed,
+  runInAction
 } from 'mobx'
+import base from '../base'
+import $http from '../../config/$http'
+import product from '../product'
+import { outType } from '../../config/index'
+
 
 class ProductModel {
-  // 弹框可见状态
-  @observable visible = false
-  // 弹框内图片列表
-  @observable imgLists = []
 
-  @computed get colors() {
-    const data = []
-    this.imgLists.map(item => {
-      if (item.urls.length !== 0) {
-        let a = {},
-            b = []
+  // 缓存列表数据
+  @observable cache = []
+  @observable listData = []
 
 
 
-
-        for (let i=0; i<item.urls.length; i++) {
-          let c = {}
-          c.uid = item.urls[i].uid
-          c.status = item.urls[i].status
-          c.name = item.urls[i].response.name || ''
-          c.url = item.urls[i].response.url || ''
-          b.push(c)
-        }
-
-        a.name = item.name
-        a.urls = b
-        data.push(a)
-      }
-    })
-    return data
-  }
-
-  constructor() {
-    this.form = null
-    this.colorNumber = 0
-  }
-
-  // 
+  // 新增产品
   @action
-  setimgListsUrls = (k, urls) => {
-    this.imgLists[k].urls = urls
-  }
-
-  @action
-  addimgListsItem = () => {
-    this.colorNumber ++
-    this.imgLists.push({
-      name: `色号${this.colorNumber}`,
-      urls: []
-    })
-  }
-
-  // 显示编辑模板弹框
-  @action
-  showModel = () => {
-    this.visible = true
-  }
-
-  // 关闭编辑模板弹框
-  @action
-  closeModel = () => {
-
-    this.imgLists = []
-    this.colorNumber = 1
-    this.visible = false
-  }
-
-  // 提交编辑模板表单
-  @action
-  submitModel = () => {
-    this.form.validateFields((err, values) => {
-      if (!err) {
-        //this.props.handleSubmit(values)
-        values.colors = this.colors
-        console.log(values)
-        this.closeModel()
-      }
-    })
-    
-  }
-
-  // 获取模板form
-  @action
-  getModelForm = form => {
+  addproductModel = form => {
     this.form = form
+  }
+
+  // 修改产品
+  @action
+  putproductModel = async val => {
+    let form,
+        timer
+
+    base.showModel()
+
+    if(!product.form) {
+      timer = await new Promise((resolve, reject) => {
+        setTimeout( () => {
+          form = product.form
+          resolve()
+        })
+      })
+    } else {
+      form = product.form
+    }
+
+    clearTimeout(timer)
+    product.changeXhrOption('put', 'productModel/putProductModel')
+    form.setFieldsValue({...outType(val, ['__v', '_id', 'superId'])});
+
+  }
+
+  // 删除产品
+  @action
+  delproductModel = form => {
+    this.form = form
+  }
+
+  // 获取产品信息
+  @action
+  getproductModel = async (Name = '', pageIndex = 0) => {
+    const result = this.cache.length === 0
+                      ? await
+                          $http({
+                            type: 'get',
+                            url: '/productModel/getproductModelInfo',
+                            values: {
+                                token: window.localStorage.token,
+                                Name,
+                                pageIndex
+                            }
+                          })
+                      : this.cache
+
+    runInAction(() => {
+      this.listData = result.rows
+    })
   }
 }
 

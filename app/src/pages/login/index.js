@@ -12,7 +12,7 @@ import $http from 'axios'
 import {observer,inject} from 'mobx-react';
 
 @inject(
-    'user'
+    'base'
   )
 @observer
 export default class Login extends React.Component {
@@ -26,7 +26,7 @@ export default class Login extends React.Component {
             .then(response => {
                 if (response.data.ok === 1) {
                     message.success(response.data.message)
-                    this.props.user.setToken(response.data.token)
+                    this.props.base.setToken(response.data.token)
                     this.props.history.push('/')                 
                 }
             })

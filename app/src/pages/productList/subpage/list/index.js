@@ -1,11 +1,10 @@
 import React from 'react'
 import { Table, Button } from 'antd'
+import { observer, inject } from 'mobx-react'
 import logoImg from '../../../../assets/images/logo.webp'
 import style from './index.css'
+
 const { Column } = Table;
-
-
-
 const data = [];
 for (let i = 0; i < 46; i++) {
     data.push({
@@ -17,6 +16,8 @@ for (let i = 0; i < 46; i++) {
     });
 }
 
+@inject('product')
+@observer
 export default class ListOf extends React.Component {
     constructor() {
         super()
@@ -24,6 +25,11 @@ export default class ListOf extends React.Component {
             selectedRowKeys: [], // Check here to configure the default column
             loading: false,
         };
+    }
+
+    handlePutProduct() {
+        this.props.product.showModal
+        this.props.product.changeXhrOption('put', 'product/putProduct')
     }
 
     start() {
@@ -116,6 +122,7 @@ export default class ListOf extends React.Component {
                                 <Button
                                     type="dashed"
                                     size="small"
+                                    onClick = { this.handlePutProduct.bind(this) }
                                 >
                                     修改
                                 </Button>

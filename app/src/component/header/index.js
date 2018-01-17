@@ -7,7 +7,7 @@ import {
     inject
 } from 'mobx-react'
 
-@inject('user')
+@inject('base')
 @observer
 export default class HeaderBar extends React.Component {
     constructor(props) {
@@ -18,7 +18,7 @@ export default class HeaderBar extends React.Component {
             <div className={ style.container }>
                 <div className={ style.avator }>
                     <span>
-                        欢迎您，{ this.props.user.username }
+                        欢迎您，{ this.props.base.username }
                     </span>
                 </div>
                 <div className={ style.news }>

@@ -28,29 +28,25 @@ import Setting from '../setting'
 import HeaderBar from '../../component/header'
 import style from './index.css'
 
-@inject('user')
+@inject('base')
 @observer
 export default class Home extends React.Component {
     constructor(props){
         super(props)
-        
-        this.setUsername = this.props.user.setUsername
         interceptors(this)
     }
     componentDidMount(){   
-        $http
-        .get('/super/getUserInfo',{
-            params:{
-                token: window.localStorage.token
-            }
-        })
-        .then(res => {
-            if (res.data.ok === 1) {
-                this.setUsername(res.data.rows.username)
-            } else {
-                message.error(res.data.message)
-            }
-        })
+        // $http
+        // .get('/super/getUserInfo',{
+        //     params:{
+        //         token: window.localStorage.token
+        //     }
+        // })
+        // .then(res => {
+        //     if (res.data.ok !== 1) {
+        //         message.error(res.data.message)
+        //     }
+        // })
 
     }
     render () {

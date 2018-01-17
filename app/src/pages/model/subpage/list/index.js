@@ -2,44 +2,47 @@ import React from 'react'
 import { Table, Button } from 'antd'
 import logoImg from '../../../../assets/images/logo.webp'
 import style from './index.css'
+import $http from '../../../../config/$http'
+import { port } from '../../../../config/index'
+import { inject, observer } from 'mobx-react'
+
 const { Column } = Table;
 
 
 
-const data = [];
-for (let i = 0; i < 46; i++) {
-    data.push({
-        key: i,
-        firstName: i,
-        lastName: 'Brown',
-        age: 32,
-        address: 'New York No. 1 Lake ParkNew York No.',
-    });
-}
-
+@inject('productModel', 'product', 'base')
+@observer
 export default class ListOf extends React.Component {
     constructor() {
         super()
         this.state = {
             selectedRowKeys: [], // Check here to configure the default column
             loading: false,
+            data: []
         };
     }
 
-    start() {
-        this.setState({ loading: true });
-        // ajax request after empty completing
-        setTimeout(() => {
-            this.setState({
-                selectedRowKeys: [],
-                loading: false,
-            });
-        }, 1000);
+
+    componentDidMount() {
+        this.props.productModel.getproductModel()
     }
+
     onSelectChange(selectedRowKeys) {
          console.log('selectedRowKeys changed: ', selectedRowKeys);
          this.setState({ selectedRowKeys});
     }
+
+    handlePut(val) {
+        this.props.productModel.putproductModel(val)
+    }
+
+    handleDelete(val) {
+        console.log(val)
+    }
+
+
+
+
     render() {
         const { loading, selectedRowKeys } = this.state;
         const rowSelection = {
@@ -47,12 +50,14 @@ export default class ListOf extends React.Component {
             onChange: this.onSelectChange.bind(this),
         };
         const hasSelected = selectedRowKeys.length > 0;
+
+        const { listData, getproductModel } = this.props.productModel
+
         return (
             <div className= { style.container }>
                 <div style={{ marginBottom: 16 }}>
                     <Button
                         type="danger"
-                        onClick={this.start.bind(this)}
                         disabled={!hasSelected}
                         loading={loading}
                         size="small"
@@ -63,41 +68,63 @@ export default class ListOf extends React.Component {
                         已选 <span style={{ color: "red" }}>{selectedRowKeys.length}</span> 条
                     </span>
                 </div>
-                <Table rowSelection={rowSelection} dataSource={data}>
+                <Table rowSelection={rowSelection} dataSource={listData.slice()} rowKey={ d => d._id }>
                     <Column
-                        title="Title"
-                        key="title"
-                        render={(text, record) => (
-                            <div>
-                                <img src={ logoImg } alt=""/>
+                        title="效果图"
+                        key="Name"
+                        width = {120}
+                        render={ item => (
+                            <div className = {style.imgBox}>
+                                <img src={ item.colors.length>0 ? port+item.colors[0].urls[0].name : '' } alt=""/>
                             </div>
                         )}
                     />
                     <Column
-                        title="Age"
-                        dataIndex="age"
-                        key="age"
+                        title="产品名称"
+                        dataIndex="spec"
+                        key="spec"   
+                        width = '25%'                   
                     />
                     <Column
-                        title="Address"
-                        dataIndex="address"
-                        key="address"
+                        title="款式"
+                        dataIndex="style"
+                        key="style"
                     />
                     <Column
-                        title="Action"
+                        title="材质"
+                        dataIndex="texture"
+                        key="texture"
+                    />
+                    <Column
+                        title="面料"
+                        dataIndex="lining"
+                        key="lining"
+                    />
+                    <Column
+                        title="单价"
+                        key="price"
+                        render={ item => (
+                            <strong>{ item.price }</strong>
+                        )}
+                    />
+                    <Column
+                        title="操作"
                         key="action"
+                        width={ 150 }
                         className={ style.actionWid }
-                        render={(text, record) => (
+                        render={ item => (
                             <div>
                                 <Button
                                     type="dashed"
                                     size="small"
+                                    onClick={ this.handlePut.bind(this, item) }
                                 >
                                     修改
                                 </Button>
                                 <Button
                                     type="danger"
                                     size="small"
+                                    onClick={ this.handleDelete.bind(this, item) }
                                 >
                                     删除
                                 </Button>

@@ -10,13 +10,14 @@ import style from './index.css'
 const FormItem = Form.Item;
 const Option = Select.Option;
 
-@inject('productModel')
+@inject('product')
 @observer
 class NormalForm extends React.Component {
 
   componentDidMount() {
-    this.props.productModel.getModelForm(this.props.form)
+    this.props.product.getModelForm(this.props.form)
   }
+  
   render() {
     const { getFieldDecorator } = this.props.form;
 
@@ -61,13 +62,22 @@ class NormalForm extends React.Component {
           )}
         </FormItem>
         <FormItem
-          label="参考尺寸"
+          label="型号"
+          labelCol={{ span: 5 }}
+          wrapperCol={{ span: 8 }}
+        >
+          {getFieldDecorator('spec', {
+            rules: [{ required: true, message: '型号不可为空!' }],
+          })(
+            <Input />
+          )}
+        </FormItem>
+        <FormItem
+          label="型号说明"
           labelCol={{ span: 5 }}
           wrapperCol={{ span: 12 }}
         >
-          {getFieldDecorator('spec', {
-            rules: [{ required: true, message: '参考尺寸不可为空!' }],
-          })(
+          {getFieldDecorator('specExplain')(
             <Input />
           )}
         </FormItem>

@@ -1,9 +1,9 @@
-import user from './superAdmin';
-import productModel from './productModel';
 import product from './product';
+import productModel from './productModel';
+import base from './base';
 
 export {
-  user,
-  productModel,
-  product
+  base,
+  product,
+  productModel
 };

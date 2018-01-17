@@ -3,36 +3,83 @@
  */
 import {
   observable,
-  action
+  action,
+  computed
 } from 'mobx'
+import base from '../base'
+import $http from '../../config/$http'
 
 class Product {
-   @observable visible = false
 
-   constructor() {
-     this.form = null
-   }
+  // 弹框内图片列表
+  @observable imgLists = []
 
-  // 显示编辑模板弹框
-  @action
-  showModel = () => {
-    this.visible = true
+  @observable form = null
+
+  @computed get colors() {
+    const data = []
+    this.imgLists.map(item => {
+
+      if (item.urls.length !== 0) {
+        let m = {},
+            n = []
+        for (let i=0; i<item.urls.length; i++) {
+          let t = {}
+          t.uid = item.urls[i].uid
+          t.status = item.urls[i].status
+          t.name = item.urls[i].response.name || ''
+          t.url = item.urls[i].response.url || ''
+          n.push(t)
+        }
+        m.name = item.name
+        m.urls = n
+        data.push(m)
+      }
+    })
+    return data
   }
 
-  // 关闭编辑模板弹框
+  constructor() {
+    this.xhrOption = {
+      type: '',
+      url: ''
+    }
+  }
+
+  // 
   @action
-  closeModel = () => {
-    this.visible = false
+  setimgListsUrls = (k, urls) => {
+    this.imgLists[k].urls = urls
+  }
+
+  @action
+  addimgListsItem = () => {
+
+    this.imgLists.push({
+      name: '',
+      urls: []
+    })
+  }
+
+  // 滞空form
+  @action
+  clearForm = () => {
+
+    this.imgLists = []
+    this.form.resetFields()
+    base.closeModel()
   }
 
   // 提交编辑模板表单
   @action
   submitModel = () => {
-    this.form.validateFields((err, values) => {
+
+    this.form.validateFields(async (err, values) => {
       if (!err) {
-        //this.props.handleSubmit(values)
-        console.log(values)
-        this.closeModel()
+        values.colors = this.colors
+        values.token = window.localStorage.token
+        let result = await $http({ ...this.xhrOption, values })
+        this.clearForm()
       }
     })
     
@@ -42,6 +89,48 @@ class Product {
   @action
   getModelForm = form => {
     this.form = form
+  }
+
+  // change xhrOption
+  @action
+  changeXhrOption = (type, url) => {
+    this.xhrOption.type = type
+    this.xhrOption.url = `/${url}`
+  }
+
+  // 新增产品
+  @action
+  addProduct = form => {
+    this.form = form
+  }
+
+  // 修改产品
+  @action
+  putProduct = form => {
+    this.form = form
+  }
+
+  // 删除产品
+  @action
+  delProduct = form => {
+    this.form = form
+  }
+
+  // 获取产品信息
+  @action
+  getProduct = () => {
+    $http({
+      type: 'get',
+      url: '/productModel/getProductModelInfo',
+      values: {
+          token: window.localStorage.token
+      }
+  }).then(res => {
+      console.log(res);
+      this.setState({
+          data: res.rows
+      })
+  })
   }
 }
 

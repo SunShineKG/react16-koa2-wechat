@@ -37,8 +37,8 @@ export async function find (model, option, deep, pageConfig) {
   }
 
   if (pageConfig && toString.call(pageConfig) === '[object Object]') {
-    pageSize = pageConfig.pageSize || 10
-    pageIndex = pageConfig.pageIndex || 0
+    pageSize = parseInt(pageConfig.pageSize) || 10
+    pageIndex = parseInt(pageConfig.pageIndex) || 0
 
     method
       .limit(pageSize)
@@ -47,7 +47,7 @@ export async function find (model, option, deep, pageConfig) {
 
     counts = await count(model)
   }
-
+  console.log("opt",opt)
   return await method
   .then(data => {
     let result = data 

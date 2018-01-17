@@ -15,14 +15,22 @@ export function isEmptyObject (obj) {
 
 // 排除对象指定属性
 export function outType (obj, arr) {
+console.log('arr', arr)
+console.log('obj',obj)
   const args = {}
 
   for ( let k in obj ) {
-    arr.map( i => {
-      if ( k !== arr[i] ) {
-        args[k] = obj[k]
+    let a = true
+
+    for (let i=0; i<arr.length; i++) {
+      if ( k == arr[i] || !obj[k] ) {
+        a = false
+        break
       }
-    })
+    }
+    if (a) {
+      args[k] = obj[k]
+    }
   }
 
   return args

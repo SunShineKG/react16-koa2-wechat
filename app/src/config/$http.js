@@ -2,12 +2,14 @@ import axios from 'axios'
 import { message } from 'antd'
 
 // 增
-export default async function $http(type = 'post', url, option) {
-  const opt = type === 'get'
-                ? { params: option }
-                : option
+export default async (options) => {
+  const type = options.type,
+        url = options.url,
+        opt = type === 'get'
+                ? { params: options.values }
+                : options.values
 
-  return await axios[type](url, option)
+  return await axios[type](url, opt)
                 .then( res => {
                   let method = res.data.ok === -1
                                 ? 'error'

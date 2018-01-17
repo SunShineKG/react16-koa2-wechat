@@ -26,7 +26,7 @@ export async function findc (ctx, model) {
 
   const id = getJWT(ctx.query.token).id,
         query = Object.assign(
-          outType(ctx.request.body, ['token', 'pageSize', 'pageIndex']),
+          outType(ctx.query, ['token', 'pageSize', 'pageIndex']),
           {
             superId: id
           }
@@ -40,7 +40,7 @@ export async function findc (ctx, model) {
             pageIndex: ctx.query.pageIndex
           }
         )
-
+        console.log("query", query)
   if (!result) return
 
   ctx.body = result

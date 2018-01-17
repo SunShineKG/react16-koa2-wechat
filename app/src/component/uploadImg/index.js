@@ -22,7 +22,6 @@ export default class UploadImg extends React.Component {
   }
 
   handleChange = ({fileList}) =>{
-    console.log(11)
     this.setState({fileList});
     this.props.pictureChange(this.state.fileList)
   }

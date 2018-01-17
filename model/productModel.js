@@ -26,7 +26,10 @@ const productModelSchema = new mongoose.Schema({
   spec: {
     type: String,
     required: true
-  },// 参考尺寸
+  },// 尺寸
+  specExplain: {
+    type: String
+  },// 尺寸说明
   colors: {
     type: Object,
     required: true

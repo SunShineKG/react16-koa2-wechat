@@ -10,36 +10,45 @@ import EditForm from './subpage/editForm'
 import { Input,Button  } from 'antd';
 const Search = Input.Search;
 
-@inject('productModel')
+@inject('product', 'base', 'productModel')
 @observer
 export default class Model extends React.Component {
 
+    addProductModel() {
+        this.props.base.showModel()
+        this.props.product.changeXhrOption('post', 'productModel/createProductModel')
+    }
+
+    onSearch(value) {
+        this.props.productModel.getproductModel(value, 0)
+    }
+
     render () {
         const {
-            visible,
-            showModel,
-            closeModel,
-            submitModel
-        } = this.props.productModel
+            submitModel,
+            clearForm
+        } = this.props.product
+        const {
+            visible
+        } = this.props.base
         return (
             <div className={ style.container }>
                 <div className={ style.searchBox }>
                     <Search
                         placeholder="请输入模板名称"
-                        onSearch={value => console.log(value)}
+                        onSearch={this.onSearch.bind(this)}
                         enterButton
                         className= { style.searchBar }
                     />
                     <Button type="primary"
-                        onClick={ showModel }>
+                        onClick={ this.addProductModel.bind(this) }>
                         新增模板
                     </Button>
                 </div>
                 <EditModal
                     visible = { visible }
-                    handleCancel = { closeModel }
+                    handleCancel = { clearForm }
                     handleOk = { submitModel }
-                    showModal = { showModel }
                     title = "编辑模板"
                     modalWidth = { 700 }>
                     <EditForm

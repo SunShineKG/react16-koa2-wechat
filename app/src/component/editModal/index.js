@@ -9,8 +9,7 @@ export default class EditModal extends React.Component {
       handleCancel,
       handleOk,
       title,
-      modalWidth,
-      showModal } = this.props;
+      modalWidth } = this.props;
     return (
       <div>
         <Modal
