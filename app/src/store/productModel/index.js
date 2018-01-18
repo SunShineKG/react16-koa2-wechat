@@ -47,8 +47,16 @@ class ProductModel {
     }
 
     clearTimeout(timer)
-    product.changeXhrOption('put', 'productModel/putProductModel')
-    form.setFieldsValue({...outType(val, ['__v', '_id', 'superId'])});
+    product.changeXhrOption('put', 'productModel/putProductModel', 'productModel')
+    form.setFieldsValue({...outType(val, ['__v', 'superId'])})
+
+    product.imgLists = val.colors.length === 0
+                        ? []
+                        : val.colors
+    //this.getproductModel()
+
+
+    console.log('productModel/productModelfile'.indexOf('product'))
 
   }
 

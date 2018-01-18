@@ -23,6 +23,9 @@ class NormalForm extends React.Component {
 
     return (
       <Form>
+        {getFieldDecorator('_id')(
+          <Input type='hidden' />
+        )}
         <FormItem
           label="产品名称"
           labelCol={{ span: 5 }}

@@ -26,23 +26,21 @@ $http.defaults.baseURL = '/v1';
 export const port = 'http://wechatshops.oss-cn-shanghai.aliyuncs.com/wechat/'
 
 export function outType (obj, arr) {
-    console.log('arr', arr)
-    console.log('obj',obj)
-      const args = {}
-    
-      for ( let k in obj ) {
-        let a = true
-    
-        for (let i=0; i<arr.length; i++) {
-          if ( k == arr[i] || !obj[k] ) {
-            a = false
-            break
-          }
-        }
-        if (a) {
-          args[k] = obj[k]
-        }
+  const args = {}
+
+  for ( let k in obj ) {
+    let a = true
+
+    for (let i=0; i<arr.length; i++) {
+      if ( k == arr[i] || !obj[k] ) {
+        a = false
+        break
       }
-    
-      return args
     }
+    if (a) {
+      args[k] = obj[k]
+    }
+  }
+
+  return args
+}

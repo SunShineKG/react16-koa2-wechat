@@ -68,7 +68,7 @@ export default class ListOf extends React.Component {
                         已选 <span style={{ color: "red" }}>{selectedRowKeys.length}</span> 条
                     </span>
                 </div>
-                <Table rowSelection={rowSelection} dataSource={listData.slice()} rowKey={ d => d._id }>
+                <Table rowSelection={rowSelection} dataSource={listData.toJS()} rowKey={ d => d._id }>
                     <Column
                         title="效果图"
                         key="Name"

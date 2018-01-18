@@ -16,7 +16,7 @@ export default class Model extends React.Component {
 
     addProductModel() {
         this.props.base.showModel()
-        this.props.product.changeXhrOption('post', 'productModel/createProductModel')
+        this.props.product.changeXhrOption('post', 'productModel/createProductModel', 'productModel')
     }
 
     onSearch(value) {

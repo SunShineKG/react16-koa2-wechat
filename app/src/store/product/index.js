@@ -8,6 +8,7 @@ import {
 } from 'mobx'
 import base from '../base'
 import $http from '../../config/$http'
+import productModel from '../productModel'
 
 class Product {
 
@@ -24,11 +25,16 @@ class Product {
         let m = {},
             n = []
         for (let i=0; i<item.urls.length; i++) {
-          let t = {}
-          t.uid = item.urls[i].uid
-          t.status = item.urls[i].status
-          t.name = item.urls[i].response.name || ''
-          t.url = item.urls[i].response.url || ''
+          let t = {},
+              urls = item.urls[i]
+          t.uid = urls.uid
+          t.status = urls.status
+          t.name = urls.response.name
+                    ? urls.response.name
+                    : urls.name
+          t.url = urls.response.url
+                    ? urls.response.url
+                    : urls.url
           n.push(t)
         }
         m.name = item.name
@@ -42,7 +48,8 @@ class Product {
   constructor() {
     this.xhrOption = {
       type: '',
-      url: ''
+      url: '',
+      model: ''
     }
   }
 
@@ -80,6 +87,9 @@ class Product {
         values.token = window.localStorage.token
         let result = await $http({ ...this.xhrOption, values })
         this.clearForm()
+        if(this.xhrOption.model === 'productModel') {
+          productModel.getproductModel()
+        }
       }
     })
     
@@ -93,8 +103,9 @@ class Product {
 
   // change xhrOption
   @action
-  changeXhrOption = (type, url) => {
+  changeXhrOption = (type, url, model='product') => {
     this.xhrOption.type = type
+    this.xhrOption.model = model
     this.xhrOption.url = `/${url}`
   }
 

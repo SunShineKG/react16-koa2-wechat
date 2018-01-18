@@ -40,7 +40,6 @@ export async function findc (ctx, model) {
             pageIndex: ctx.query.pageIndex
           }
         )
-        console.log("query", query)
   if (!result) return
 
   ctx.body = result
@@ -87,7 +86,7 @@ export async function insertc (ctx, model) {
 
   const id = getJWT(ctx.request.body.token).id,
       option = Object.assign(
-        outType(ctx.request.body, ['token']),
+        outType(ctx.request.body, ['token', '_id']),
         {
           superId: id
         }
@@ -142,8 +141,7 @@ export async function putc (ctx, model) {
         result = await update(
           model,
           { 
-            _id: params.id,
-            superId: id
+            _id: params._id
           },
           outType(params, ['id','token'])
         )
