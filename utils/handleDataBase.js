@@ -47,7 +47,6 @@ export async function find (model, option, deep, pageConfig) {
 
     counts = await count(model)
   }
-  console.log("opt",opt)
   return await method
   .then(data => {
     let result = data 

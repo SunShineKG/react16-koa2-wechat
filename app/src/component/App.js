@@ -10,13 +10,7 @@ import Login from '../pages/login'
 
 
 export default class App extends React.Component {
-    constructor(props){
-        super(props)
 
-    }
-    componentDidMount(){
-        
-    }
     render () {
         return (
             <Router>

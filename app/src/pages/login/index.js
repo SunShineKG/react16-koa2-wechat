@@ -16,9 +16,6 @@ import {observer,inject} from 'mobx-react';
   )
 @observer
 export default class Login extends React.Component {
-    componentDidMount(){
-
-    }
 
     login(values) {
         $http

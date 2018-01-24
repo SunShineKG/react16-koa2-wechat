@@ -29,9 +29,6 @@ export default class SliderBar extends React.Component {
     render() {
         return (
             <div style={{ width: 140 }}>
-                {/*<Button type="primary" onClick={this.toggleCollapsed.bind(this)} style={{ marginBottom: 16 }}>*/}
-                    {/*<Icon type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'} />*/}
-                {/*</Button>*/}
                 <div className={ style.imgBox }>
                     <img src={ logoImg } alt=""/>
                 </div>

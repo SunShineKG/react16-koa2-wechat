@@ -35,20 +35,7 @@ export default class Home extends React.Component {
         super(props)
         interceptors(this)
     }
-    componentDidMount(){   
-        // $http
-        // .get('/super/getUserInfo',{
-        //     params:{
-        //         token: window.localStorage.token
-        //     }
-        // })
-        // .then(res => {
-        //     if (res.data.ok !== 1) {
-        //         message.error(res.data.message)
-        //     }
-        // })
 
-    }
     render () {
         return (
 

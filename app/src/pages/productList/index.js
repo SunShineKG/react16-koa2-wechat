@@ -13,9 +13,6 @@ const Search = Input.Search;
 @inject('product', 'base')
 @observer
 export default class ProductList extends React.Component {
-    componentWillUnmount(){
-        console.log(11)
-    }
 
     addProduct() {
         this.props.product.showModal

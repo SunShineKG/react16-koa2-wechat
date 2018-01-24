@@ -53,10 +53,6 @@ class ProductModel {
     product.imgLists = val.colors.length === 0
                         ? []
                         : val.colors
-    //this.getproductModel()
-
-
-    console.log('productModel/productModelfile'.indexOf('product'))
 
   }
 
