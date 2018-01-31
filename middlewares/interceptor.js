@@ -16,14 +16,14 @@ export default async (ctx,next) => {
     // 判断是否传入token
     if (option && option.token) {
       
-      try {
+        try {
+          getJWT(option.token)
 
-        getJWT(option.token)
-      } catch (err) {
-        ctx.body = {
-          ok: -2,
-          message: '身份验证失败，请重新登录'
-        }
+        } catch (err) {
+          ctx.body = {
+            ok: -2,
+            message: '身份验证失败，请重新登录'
+          }
 
         return
       }
